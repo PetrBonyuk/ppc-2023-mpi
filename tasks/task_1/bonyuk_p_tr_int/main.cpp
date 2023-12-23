@@ -25,7 +25,7 @@ TEST(TrapecIntegral, standardfun) {
 	const int N = 100000;
 	const double a = -1;
 	const double b = 1;
-	const double real_var = 1.5707963267948966;
+	const double real_var = 1.5708;
 
 
 	double global_sum = TrapecIntegr(a, b, standard_function, N);
@@ -41,7 +41,7 @@ TEST(TrapecIntegral, complfun) {
 	const int N = 1000000;
 	const double a = -1;
 	const double b = 1;
-	const double real_var = 0.23042249506047835;
+	const double real_var = 0.230422;
 
 	double global_sum = TrapecIntegr(a, b, complex_function, N);
 
@@ -56,7 +56,7 @@ TEST(TrapecIntegral, sqrtfun) {
 	const int N = 1000000;
 	const double a = -1;
 	const double b = 1;
-	const double real_var = 329.3634120468287;
+	const double real_var = 329.363;
 
 	double global_sum = TrapecIntegr(a, b, complex_sqrt_function, N);
 
@@ -71,7 +71,7 @@ TEST(TrapecIntegral, sincosfun) {
 	const int N = 1000000;
 	const double a = -3.141592653589793;
 	const double b = 3.141592653589793;
-	const double real_var = 4.442882938158356;
+	const double real_var = 4.44288;
 
 	double global_sum = TrapecIntegr(a, b, complex_sin_cos_function, N);
 
