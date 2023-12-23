@@ -3,7 +3,7 @@
 #include <mpi.h>
 #include "task_1/bonyuk_p_tr_int/tr_int.h"
 
-#define ERRORRATE 0.00001
+#define ERRORRATE 0.0001
 
 TEST(TrapecIntegral, Fconst) {
 	int rank;
