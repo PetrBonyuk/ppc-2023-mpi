@@ -1,7 +1,7 @@
 ﻿#include "gtest/gtest.h"
 #include <iostream>
 #include <mpi.h>
-#include "./tr_int.h"
+#include "task_1/bonyuk_p_tr_int/tr_int.h"
 
 #define ERRORRATE 0.00001
 
@@ -80,7 +80,7 @@ TEST(TrapecIntegral, sincosfun) {
 	}
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char** argv) {
 	MPI_Init(&argc, &argv);
 	::testing::InitGoogleTest(&argc, argv);
 	int result = RUN_ALL_TESTS();

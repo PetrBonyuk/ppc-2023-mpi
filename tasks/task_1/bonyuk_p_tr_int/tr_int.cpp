@@ -1,4 +1,4 @@
-#include "./tr_int.h"
+#include "task_1/bonyuk_p_tr_int/tr_int.h"
 #include <cmath>
 #include <mpi.h>
 
