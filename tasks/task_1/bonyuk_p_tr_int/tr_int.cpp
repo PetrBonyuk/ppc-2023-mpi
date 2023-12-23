@@ -55,13 +55,13 @@ double TrapecIntegr(double a, double b, functional f, int N) {
 	}
 	double global_area = 0;
 	double local_area = 0;
-
+	double local_a = a + world.rank() * steps_count * step;
+	double local_b = local_a + steps_count * step;
 	if (world.rank() == world.size() - 1) {
 		local_area = get_area(local_val, f, steps_count + N - steps_count * world.size(), step);
+		local_b = b;
 	}
-	else {
-		local_area = get_area(local_val, f, steps_count, step);
-	}
+	double local_area = get_area(local_a, f, local_b - local_a, step);
 	reduce(world, local_area, global_area, std::plus<double>(), 0);
 	return global_area;
 }

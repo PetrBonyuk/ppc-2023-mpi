@@ -14,23 +14,21 @@ TEST(TrapecIntegral, Fconst) {
 
 	double global_sum = TrapecIntegr(a, b, const_function, N);
 
-	if (rank == 0) {
-		ASSERT_LT(std::abs(real_var - global_sum), ERRORRATE);
+	if (world.rank() == 0) {
+		ASSERT_NEAR(global_sum, real_var, ERRORRATE);
 	}
 }
 
 TEST(TrapecIntegral, standardfun) {
 	boost::mpi::communicator world;
 	const int N = 1000;
-	const double a = -1;
-	const double b = 1;
-	const double real_var = 1.5708;
-
+	const double a = -1, b = 1;
+	const double real_var = M_PI / 2;
 
 	double global_sum = TrapecIntegr(a, b, standard_function, N);
 
-	if (rank == 0) {
-		ASSERT_LT(std::abs(real_var - global_sum), ERRORRATE);
+	if (world.rank() == 0) {
+		ASSERT_NEAR(global_sum, real_var, ERRORRATE);
 	}
 }
 
@@ -44,8 +42,8 @@ TEST(TrapecIntegral, complfun) {
 
 	double global_sum = TrapecIntegr(a, b, complex_function, N);
 
-	if (rank == 0) {
-		ASSERT_LT(std::abs(real_var - global_sum), ERRORRATE);
+	if (world.rank() == 0) {
+		ASSERT_NEAR(global_sum, real_var, ERRORRATE);
 	}
 }
 
@@ -58,8 +56,8 @@ TEST(TrapecIntegral, sqrtfun) {
 
 	double global_sum = TrapecIntegr(a, b, complex_sqrt_function, N);
 
-	if (rank == 0) {
-		ASSERT_LT(std::abs(real_var - global_sum), ERRORRATE);
+	if (world.rank() == 0) {
+		ASSERT_NEAR(global_sum, real_var, ERRORRATE);
 	}
 }
 
