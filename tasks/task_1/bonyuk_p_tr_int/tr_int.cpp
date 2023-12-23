@@ -1,7 +1,8 @@
-#include "task_1/bonyuk_p_tr_int/tr_int.h"
 #include <cmath>
+#include <functional>
 #include <boost/mpi/communicator.hpp>
 #include <boost/mpi/collectives.hpp>
+#include "task_1/bonyuk_p_tr_int/tr_int.h"
 
 double const_function(double x) {
 	return 1;
