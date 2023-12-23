@@ -16,6 +16,7 @@ double complex_function(double x) {
 }
 
 double complex_sqrt_function(double x) {
+	if (x + 2 < 0) return std::numeric_limits<double>::quiet_NaN();
 	return (4 + std::pow(2 * x + 6, 3)) / std::sqrt(x + 2);
 }
 
@@ -37,31 +38,20 @@ double get_area(double a, functional f, int steps_count, double step) {
 
 double TrapecIntegr(double a, double b, functional f, int N) {
 	boost::mpi::communicator world;
-	const double step = std::abs(b - a) / N;
-	const int steps_count = N / world.size();
+	const double step = (b - a) / N;
+	const int steps_per_proc = N / world.size();
+	const int leftover_steps = N % world.size();
 
-	if (world.rank() == 0) {
-		for (int proc = 1; proc < world.size(); proc++) {
-			world.send(proc, 0, a + steps_count * step * proc);
-		}
-	}
+	double local_a = a + world.rank() * steps_per_proc * step;
+	double local_b = local_a + steps_per_proc * step;
 
-	double local_val;
-	if (world.rank() == 0) {
-		local_val = a;
-	}
-	else {
-		world.recv(0, 0, local_val);
-	}
-	double global_area = 0;
-	double local_area = 0;
-	double local_a = a + world.rank() * steps_count * step;
-	double local_b = local_a + steps_count * step;
 	if (world.rank() == world.size() - 1) {
-		local_area = get_area(local_val, f, steps_count + N - steps_count * world.size(), step);
-		local_b = b;
+		local_b += leftover_steps * step;
 	}
-	double local_area = get_area(local_a, f, local_b - local_a, step);
+
+	double local_area = get_area(local_a, f, steps_per_proc + (world.rank() == world.size() - 1 ? leftover_steps : 0), step);
+	double global_area = 0;
+
 	reduce(world, local_area, global_area, std::plus<double>(), 0);
 	return global_area;
 }
