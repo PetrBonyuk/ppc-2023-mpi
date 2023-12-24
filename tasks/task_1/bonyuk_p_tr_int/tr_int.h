@@ -11,4 +11,4 @@ double complex_sin_cos_function(double x);
 double get_area(double a, double b, functional f, int n);
 double TrapecIntegr(double a, double b, functional f, int N);
 
-#endif //TASKS_TASK_1_BONYUK_P_TR_INT_TR_INT_H_ 
+#endif  // TASKS_TASK_1_BONYUK_P_TR_INT_TR_INT_H_
