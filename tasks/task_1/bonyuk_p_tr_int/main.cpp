@@ -28,7 +28,6 @@ TEST(TrapecIntegral, standardfun) {
 	const double b = 1;
 	const double real_var = 1.5707963267948966;
 
-
 	double global_sum = TrapecIntegr(a, b, standard_function, N);
 
 	if (rank == 0) {
