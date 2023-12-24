@@ -1,7 +1,8 @@
 // Copyright 2023 Bonyuk Petr
-#include "task_2/bonyuk_p_tr_int/tr_int.h"
 #include <cmath>
+#include <functional>
 #include <mpi.h>
+#include "task_2/bonyuk_p_tr_int/tr_int.h"
 
 double const_function(double x) {
 	return 1;
@@ -49,8 +50,7 @@ double TrapecIntegr(double a, double b, functional f, int N) {
 	if (rank < leftover_steps) {
 		local_a += rank * step;
 		local_b += (rank + 1) * step;
-	}
-	else {
+	} else {
 		local_a += leftover_steps * step;
 		local_b += leftover_steps * step;
 	}
